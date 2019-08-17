@@ -68,7 +68,8 @@ tarih datetime,
 fiyat int ,
 kazanctipi varchar(12))
 
---Araç kiralandığında Rapor tablosuna kiralama bilgilerinin girilmesi için yazılan Trigger
+--AraÃ§ kiralandÄ±ÄŸÄ±nda Rapor tablosuna kiralama bilgilerinin girilmesi iÃ§in yazÄ±lan Trigger.
+-- Trigger written to enter rental information in the report table when the vehicle is leased.
 go
 create trigger kiralaninca on KiralamaRaporu
 for insert
@@ -78,7 +79,8 @@ declare @plaka varchar(14),@tc varchar(11), @tarih Datetime ,@fiyat int
 select @plaka=plaka ,@tc =tc,@tarih=kiralamaTarih,@fiyat=kiralamaFiyat from inserted
 insert into Rapor values(@plaka,@tc,@tarih,@fiyat,'Kiral ile')
 end
---Araç satıldığında Rapor tablosuna satış bilgilerinin girilmesi için yazılan Trigger
+--AraÃ§ satÄ±ldÄ±ÄŸÄ±nda Rapor tablosuna satÃ½Ã¾ bilgilerinin girilmesi iÃ§in yazÄ±lan Trigger.
+--Trigger written to enter sales information in the report table when the vehicle is sold.
 go
 create trigger satilinca on SatisRaporu
 for insert
@@ -86,9 +88,10 @@ as
 begin
 declare @plaka varchar(14),@tc varchar(11),@tarih Datetime ,@fiyat int
 select @plaka=plaka,@tc=tc,@tarih=satisTarih,@fiyat=satisFiyat from inserted
-insert into Rapor values(@plaka,@tc,@tarih,@fiyat,'Satış ile')
+insert into Rapor values(@plaka,@tc,@tarih,@fiyat,'SatÃ½Ã¾ ile')
 end
---Aracın kiralama bilgileri güncellendiğinde Rapor tablosunda olusacak değişiklikler için yazılan Trigger
+--AracÄ±n kiralama bilgileri gÃ¼ncellendiÄŸinde Rapor tablosunda olusacak deÄŸiÅŸiklikler iÃ§in yazÄ±lan Trigger.
+--Trigger written for changes to occur in the report table when the rental information of the vehicle is updated.
 go
 CREATE TRIGGER GuncellemeOlunca on KiralamaRaporu
 after update
